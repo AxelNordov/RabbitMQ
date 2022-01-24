@@ -27,9 +27,10 @@ public class Worker {
                 e.printStackTrace();
             } finally {
                 System.out.println(" [x] Done");
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
         };
-        boolean autoAck = true; // acknowledgment is covered below
+        boolean autoAck = false; // acknowledgment is covered below
         channel.basicConsume(QUEUE_NAME, autoAck, deliverCallback, consumerTag -> { });
     }
 
